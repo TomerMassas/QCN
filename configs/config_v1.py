@@ -58,7 +58,8 @@ class ConfigV1:
 
         # logging
         self.save_folder_parent = './results/'
-        self.save_folder = f'{self.save_folder_parent}/{self.dataset_name}/{self.model_name}/Back_{self.backbone}_M_{self.model_name}_C{self.reduced_dim}_T{self.tau:.2f}_{self.exp_name}_{get_current_time()}'
+        # self.save_folder = f'{self.save_folder_parent}/{self.dataset_name}/{self.model_name}/Back_{self.backbone}_M_{self.model_name}_C{self.reduced_dim}_T{self.tau:.2f}_{self.exp_name}_{get_current_time()}'
+        self.save_folder = f'{self.save_folder_parent}/{self.dataset_name}/{self.model_name}'
         os.makedirs(self.save_folder, exist_ok=True)
 
         self.load = False

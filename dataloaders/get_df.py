@@ -1,3 +1,5 @@
+import os.path
+
 import pandas as pd
 
 def get_df_v1(cfg, is_train=False):
@@ -22,11 +24,18 @@ def get_df_v1(cfg, is_train=False):
             train_df_path = cfg.datasplit_root + 'SPAQ_train_split_%d.xlsx'%(cfg.split)
 
         else:
-            ref_image_path = cfg.dataset_root + 'Images_resized_384/'
-            ref_df_path = cfg.datasplit_root + 'SPAQ_train_split_%d.xlsx'%(cfg.split)
+            # ref_image_path = cfg.dataset_root + 'Images_resized_384/'
+            # ref_df_path = cfg.datasplit_root + 'SPAQ_train_split_%d.xlsx'%(cfg.split)
+            #
+            # test_image_path = cfg.dataset_root + 'Images_resized_384/'
+            # test_df_path = cfg.datasplit_root + 'SPAQ_test_split_%d.xlsx'%(cfg.split)
 
-            test_image_path = cfg.dataset_root + 'Images_resized_384/'
-            test_df_path = cfg.datasplit_root + 'SPAQ_test_split_%d.xlsx'%(cfg.split)
+            # tomer changes
+            ref_image_path  = os.path.join(cfg.dataset_root,'segment_034_ref/')
+            ref_df_path     = os.path.join(cfg.datasplit_root, 'segment_034_ref.csv')
+
+            test_image_path = os.path.join(cfg.dataset_root, 'segment_034_test/')
+            test_df_path    = os.path.join(cfg.datasplit_root, 'segment_034_test.csv')
 
     elif cfg.dataset_name == 'KonIQ10K':
 
@@ -39,7 +48,7 @@ def get_df_v1(cfg, is_train=False):
                 train_df_path = cfg.datasplit_root + '/KonIQ10K_train_split_%d.csv' % (cfg.split)
 
         else:
-            ref_image_path = cfg.dataset_root + '512x384/'
+            ref_image_path = cfg.dataset_root + 'segment_034'#'512x384/'
             if cfg.training_scheme == 'koniq10k':
                 ref_df_path = cfg.datasplit_root + 'koniq10k_distributions_sets.csv'
 

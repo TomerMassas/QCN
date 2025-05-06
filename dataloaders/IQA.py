@@ -79,6 +79,7 @@ class Test(Dataset):
     def __len__(self):
         return len(self.df_test)
 
+
 class Ref(Dataset):
     def __init__(self, cfg):
         self.image_size = cfg.image_size
@@ -111,4 +112,4 @@ class Ref(Dataset):
         return len(self.idx_0)
 
     def get_pair_lists(self, batch_size):
-        self.idx_0, self.group_0 = self.pg.get_test_im_list(mos=np.round_(self.df_base['MOS'].values, 0), batch_size=batch_size, random_choice=True)
+        self.idx_0, self.group_0 = self.pg.get_test_im_list(mos=np.round(self.df_base['MOS'].values, 0), batch_size=batch_size, random_choice=True)
