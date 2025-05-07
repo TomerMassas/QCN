@@ -36,10 +36,17 @@ def resize_images(source_dir, target_dir, width, height):
         print(f"Processed: {filename}")
 
 
-# Example usage for SPAQ images (384x384)
-resize_images(r"C:\Users\TomerMassas\Documents\GitHub\QCN\dataset_test\segment_034_original_frames",
-              r"C:\Users\TomerMassas\Documents\GitHub\QCN\dataset_test\segment_034_test",
-              384, 384)
+if __name__ == "__main__":
+    seg_num = '032'
 
-# Example usage for KonIQ10K images (512x384)
-# resize_images("path_to_original_KonIQ10K_images", "512x384", 512, 384)
+    # Example usage for SPAQ images (384x384)
+    resize_images(fr"C:\Users\TomerMassas\Desktop\Video project\video scene detection\tests\Film\frames\segment_{seg_num}",
+                  fr"C:\Users\TomerMassas\Documents\GitHub\QCN\dataset_test\SPAQ\segment_{seg_num}_test",
+                  384, 384)
+
+
+
+    # Example usage for KonIQ10K images (512x384)
+    resize_images(fr"C:\Users\TomerMassas\Desktop\Video project\video scene detection\tests\Film\frames\segment_{seg_num}",
+                  fr"C:\Users\TomerMassas\Documents\GitHub\QCN\dataset_test\KonIQ10K\segment_{seg_num}_test",
+                  512, 384)

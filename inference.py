@@ -19,7 +19,7 @@ from utils.train_utils import Maxlloyd
 def inference(cfg):
     # Set up logging
     os.makedirs(cfg.save_folder, exist_ok=True)
-    cfg.log_file = open(os.path.join(cfg.save_folder, 'inference_log.txt'), 'w')
+    cfg.log_file = open(os.path.join(cfg.save_folder, f'inference_log_{cfg.dataset_name}_{cfg.video_segment}.txt'), 'w')
 
     # Generate dataloaders
     test_ref_loader, test_loader = gen_dataloader_for_inference(cfg)
@@ -161,7 +161,7 @@ def save_results_to_csv(cfg, results):
     df_sorted = df.sort_values(by='predicted_score', ascending=False)
 
     # Save to CSV
-    csv_path = os.path.join(cfg.save_folder, 'image_scores.csv')
+    csv_path = os.path.join(cfg.save_folder, f'image_scores_{cfg.dataset_name}_{cfg.video_segment}.csv')
     df_sorted.to_csv(csv_path, index=False)
 
     # Log top and bottom 5 images
@@ -188,22 +188,26 @@ if __name__ == "__main__":
 
     # Set inference-specific parameters
     cfg.load = True  # Enable model loading
-    cfg.dataset_name = 'SPAQ'  # or 'KonIQ10K'
-    cfg.ckpt_file = 'SRCC_Epoch_94_SRCC_0.9246_PCC_0.9265_MAE_6.1870.pth'
+    cfg.dataset_name = 'KonIQ10K'  # 'SPAQ'  or 'KonIQ10K'
+    cfg.ckpt_file = 'SRCC_Epoch_89_SRCC_0.9349_PCC_0.9446_MAE_3.7669.pth'
     cfg.init_model = f'./ckpt/{cfg.dataset_name}/Split_{cfg.split}/{cfg.ckpt_file}'
     cfg.dataset_root = fr'C:\Users\TomerMassas\Documents\GitHub\QCN\dataset_test'
     cfg.datasplit_root = r"C:\Users\TomerMassas\Documents\GitHub\QCN\datasplit\pictime"
+    cfg.video_segment = 'segment_032'
 
     # pivot score setting
-    train_dataset_moses = pd.read_excel(r"C:\Users\TomerMassas\Documents\GitHub\QCN\datasplit\SPAQ\SPAQ_train_split_1.xlsx")['MOS'].values
+    # train_dataset_moses = pd.read_excel(fr"C:\Users\TomerMassas\Documents\GitHub\QCN\datasplit\{cfg.dataset_name}\{cfg.dataset_name}_train_split_1.xlsx")['MOS'].values
+    train_dataset_moses = pd.read_csv(fr"C:\Users\TomerMassas\Documents\GitHub\QCN\datasplit\{cfg.dataset_name}\{cfg.dataset_name}_train_split_1.csv")['MOS'].values
     maxlloyd = Maxlloyd(train_dataset_moses, rpt_num=cfg.spv_num)
     cfg.score_pivot_score = maxlloyd.get_new_rpt_scores()
     cfg.reference_point_num = len(cfg.score_pivot_score)
 
 
     # saveing top 5 and bottom 5 results
-    cfg.save_top_bottom_5_results = r'C:\Users\TomerMassas\Desktop\Video project\video scene detection\tests\Film\frames\QCN'
-    cfg.images_folder_original_path = r'C:\Users\TomerMassas\Desktop\Video project\video scene detection\tests\Film\frames\segment_034'
+    cfg.save_top_bottom_5_results = fr'C:\Users\TomerMassas\Desktop\Video project\video scene detection\tests\Film\frames\QCN\{cfg.dataset_name}\{cfg.video_segment}'
+    cfg.images_folder_original_path = fr'C:\Users\TomerMassas\Desktop\Video project\video scene detection\tests\Film\frames\{cfg.video_segment}'
 
     # Run inference
     results = inference(cfg)
+
+    print("Done")

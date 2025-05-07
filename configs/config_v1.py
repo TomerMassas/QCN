@@ -4,7 +4,7 @@ from utils.util import get_current_time, write_log
 class ConfigV1:
     def __init__(self):
         # dataset
-        self.dataset_name = 'SPAQ'
+        self.dataset_name = 'KonIQ10K' #'SPAQ'
         self.dataset_root = f'/home/nhshin/dataset/IQA/{self.dataset_name}/'
         self.datasplit_root = f'./datasplit/{self.dataset_name}/'
         self.training_scheme = 'random_split' # for KonIQ10K dataset

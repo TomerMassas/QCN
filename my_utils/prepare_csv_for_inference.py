@@ -27,9 +27,11 @@ if __name__ == "__main__":
     #
     # args = parser.parse_args()
     # create_mos_csv(args.image_folder, args.output_folder)
-    type_eval = 'ref'
-    image_folder = fr'C:\Users\TomerMassas\Documents\GitHub\QCN\dataset_test\segment_034_{type_eval}'
+    type_eval =  'test' #'test' 'ref'
+    seg_num = '032'
+    dataset_name = 'KonIQ10K'  # 'SPAQ'  or 'KonIQ10K'
+    image_folder = fr'C:\Users\TomerMassas\Documents\GitHub\QCN\dataset_test\{dataset_name}\segment_{seg_num}_{type_eval}'
     output_folder = r'C:\Users\TomerMassas\Documents\GitHub\QCN\datasplit\pictime'
-    output_filename = f"segment_034_{type_eval}.csv"
+    output_filename = f"segment_{seg_num}_{type_eval}.csv"
     create_mos_csv(image_folder, output_folder, output_filename)
 

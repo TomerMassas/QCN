@@ -30,12 +30,13 @@ def get_df_v1(cfg, is_train=False):
             # test_image_path = cfg.dataset_root + 'Images_resized_384/'
             # test_df_path = cfg.datasplit_root + 'SPAQ_test_split_%d.xlsx'%(cfg.split)
 
-            # tomer changes
-            ref_image_path  = os.path.join(cfg.dataset_root,'segment_034_ref/')
-            ref_df_path     = os.path.join(cfg.datasplit_root, 'segment_034_ref.csv')
 
-            test_image_path = os.path.join(cfg.dataset_root, 'segment_034_test/')
-            test_df_path    = os.path.join(cfg.datasplit_root, 'segment_034_test.csv')
+            # tomer changes
+            ref_image_path  = os.path.join(cfg.dataset_root, cfg.dataset_name ,f'{cfg.video_segment}_ref/')
+            ref_df_path     = os.path.join(cfg.datasplit_root, f'{cfg.video_segment}_ref.csv')
+
+            test_image_path = os.path.join(cfg.dataset_root, cfg.dataset_name ,f'{cfg.video_segment}_test/')
+            test_df_path    = os.path.join(cfg.datasplit_root, f'{cfg.video_segment}_test.csv')
 
     elif cfg.dataset_name == 'KonIQ10K':
 
@@ -48,19 +49,28 @@ def get_df_v1(cfg, is_train=False):
                 train_df_path = cfg.datasplit_root + '/KonIQ10K_train_split_%d.csv' % (cfg.split)
 
         else:
-            ref_image_path = cfg.dataset_root + 'segment_034'#'512x384/'
-            if cfg.training_scheme == 'koniq10k':
-                ref_df_path = cfg.datasplit_root + 'koniq10k_distributions_sets.csv'
+            # ref_image_path = cfg.dataset_root + 'segment_034'#'512x384/'
+            # if cfg.training_scheme == 'koniq10k':
+            #     ref_df_path = cfg.datasplit_root + 'koniq10k_distributions_sets.csv'
+            #
+            # elif cfg.training_scheme == 'random_split':
+            #     ref_df_path = cfg.datasplit_root + f'/KonIQ10K_train_split_%d.csv' % (cfg.split)
+            #
+            # test_image_path = cfg.dataset_root + '512x384/'
+            # if cfg.training_scheme == 'koniq10k':
+            #     test_df_path = cfg.datasplit_root + 'koniq10k_distributions_sets.csv'
+            #
+            # elif cfg.training_scheme == 'random_split':
+            #     test_df_path = cfg.datasplit_root + '/KonIQ10K_test_split_%d.csv' % (cfg.split)
 
-            elif cfg.training_scheme == 'random_split':
-                ref_df_path = cfg.datasplit_root + f'/KonIQ10K_train_split_%d.csv' % (cfg.split)
 
-            test_image_path = cfg.dataset_root + '512x384/'
-            if cfg.training_scheme == 'koniq10k':
-                test_df_path = cfg.datasplit_root + 'koniq10k_distributions_sets.csv'
+            # tomer changes
+            ref_image_path = os.path.join(cfg.dataset_root, cfg.dataset_name ,f'{cfg.video_segment}_test/')# i should later use a ref image set instead of ref for both image test and ref
+            ref_df_path = os.path.join(cfg.datasplit_root, f'{cfg.video_segment}_test.csv')# i should later use a ref image set instead of ref for both image test and ref
 
-            elif cfg.training_scheme == 'random_split':
-                test_df_path = cfg.datasplit_root + '/KonIQ10K_test_split_%d.csv' % (cfg.split)
+            test_image_path = os.path.join(cfg.dataset_root, cfg.dataset_name, f'{cfg.video_segment}_test/')
+            test_df_path = os.path.join(cfg.datasplit_root, f'{cfg.video_segment}_test.csv')
+
 
 
     elif cfg.dataset_name == 'CLIVE':
