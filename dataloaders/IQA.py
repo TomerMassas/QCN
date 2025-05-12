@@ -84,6 +84,9 @@ class Ref(Dataset):
     def __init__(self, cfg):
         self.image_size = cfg.image_size
         self.image_dir, self.df_base, _, _ = get_df_v1(cfg, is_train=False)
+        # tomer: i have used the whole dataset as ref (the one provided with QCN that has 8058 images for both test and train)
+        # because it seems that i need the images that come from the same dataset
+        self.df_base = self.df_base[self.df_base['set'] == 'training']
 
         self.pg = PairGenerator(tau=cfg.tau)
         self.get_pair_lists(cfg.batch_size-1)
