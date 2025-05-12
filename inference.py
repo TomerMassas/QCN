@@ -71,7 +71,7 @@ def evaluate_images(cfg, net, ref_data_loader, data_loader):
 
             aux_f = torch.cat(f_list)
             aux_f = aux_f.squeeze()
-            aux_f = aux_f.unsqueeze(0)
+            # aux_f = aux_f.unsqueeze(0)
             aux_f = aux_f.transpose(1, 0)
             print("\nAuxiliary features extracted.")
 
@@ -193,7 +193,7 @@ if __name__ == "__main__":
     cfg.init_model = f'./ckpt/{cfg.dataset_name}/Split_{cfg.split}/{cfg.ckpt_file}'
     cfg.dataset_root = fr'C:\Users\TomerMassas\Documents\GitHub\QCN\dataset_test'
     cfg.datasplit_root = r"C:\Users\TomerMassas\Documents\GitHub\QCN\datasplit\pictime"
-    cfg.video_segment = 'segment_032'
+    cfg.video_segment = 'segment_010'
 
     # pivot score setting
     # train_dataset_moses = pd.read_excel(fr"C:\Users\TomerMassas\Documents\GitHub\QCN\datasplit\{cfg.dataset_name}\{cfg.dataset_name}_train_split_1.xlsx")['MOS'].values
@@ -202,12 +202,30 @@ if __name__ == "__main__":
     cfg.score_pivot_score = maxlloyd.get_new_rpt_scores()
     cfg.reference_point_num = len(cfg.score_pivot_score)
 
+    from my_utils.resize_images_preprocess import resize_images
+    from my_utils.prepare_csv_for_inference import create_mos_csv
+    segments_names = os.listdir(r'C:\Users\TomerMassas\Desktop\Video project\video scene detection\tests\Film\frames\frames of segments')
+    for seg_num in segments_names:
+        cfg.video_segment = seg_num
 
-    # saveing top 5 and bottom 5 results
-    cfg.save_top_bottom_5_results = fr'C:\Users\TomerMassas\Desktop\Video project\video scene detection\tests\Film\frames\QCN\{cfg.dataset_name}\{cfg.video_segment}'
-    cfg.images_folder_original_path = fr'C:\Users\TomerMassas\Desktop\Video project\video scene detection\tests\Film\frames\{cfg.video_segment}'
+        # saveing top 5 and bottom 5 results
+        cfg.save_top_bottom_5_results = fr'C:\Users\TomerMassas\Desktop\Video project\video scene detection\tests\Film\frames\QCN\{cfg.dataset_name}\{cfg.video_segment}'
+        cfg.images_folder_original_path = fr'C:\Users\TomerMassas\Desktop\Video project\video scene detection\tests\Film\frames\frames of segments\{cfg.video_segment}'
 
-    # Run inference
-    results = inference(cfg)
+        # resize the images
+        resize_images(fr"C:\Users\TomerMassas\Desktop\Video project\video scene detection\tests\Film\frames\frames of segments\{seg_num}",
+                      fr"C:\Users\TomerMassas\Documents\GitHub\QCN\dataset_test\KonIQ10K\{seg_num}_test",
+                      512, 384)
+
+        # prepare csv for frames
+        dataset_name = 'KonIQ10K'  # 'SPAQ'  or 'KonIQ10K'
+        image_folder = fr'C:\Users\TomerMassas\Documents\GitHub\QCN\dataset_test\{dataset_name}\{seg_num}_test'
+        output_folder = r'C:\Users\TomerMassas\Documents\GitHub\QCN\datasplit\pictime'
+        output_filename = f"{seg_num}_test.csv"
+        create_mos_csv(image_folder, output_folder, output_filename)
+
+        # Run inference
+        results = inference(cfg)
+        print(fr'Done {seg_num}')
 
     print("Done")
