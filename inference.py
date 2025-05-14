@@ -19,7 +19,7 @@ from utils.train_utils import Maxlloyd
 def inference(cfg):
     # Set up logging
     os.makedirs(cfg.save_folder, exist_ok=True)
-    cfg.log_file = open(os.path.join(cfg.save_folder, f'inference_log_{cfg.dataset_name}_{cfg.video_segment}.txt'), 'w')
+    cfg.log_file = open(os.path.join(cfg.save_folder,f'inference_log_{cfg.dataset_name}_{cfg.video_segment}.txt'), 'w')
 
     # Generate dataloaders
     test_ref_loader, test_loader = gen_dataloader_for_inference(cfg)
@@ -204,23 +204,26 @@ if __name__ == "__main__":
 
     from my_utils.resize_images_preprocess import resize_images
     from my_utils.prepare_csv_for_inference import create_mos_csv
-    segments_names = os.listdir(r'C:\Users\TomerMassas\Desktop\Video project\video scene detection\tests\Film\frames\frames of segments')
-    for seg_num in segments_names:
+    cfg.video_name = 'Film'
+    cfg.save_folder = os.path.join(cfg.save_folder, cfg.video_name)
+    segments_names = os.listdir(fr'C:\Users\TomerMassas\Desktop\Video project\video scene detection\tests\{cfg.video_name}\frames\frames of segments')
+    for it, seg_num in enumerate(segments_names):
+        if it <10:
+            continue
         cfg.video_segment = seg_num
 
         # saveing top 5 and bottom 5 results
-        cfg.save_top_bottom_5_results = fr'C:\Users\TomerMassas\Desktop\Video project\video scene detection\tests\Film\frames\QCN\{cfg.dataset_name}\{cfg.video_segment}'
-        cfg.images_folder_original_path = fr'C:\Users\TomerMassas\Desktop\Video project\video scene detection\tests\Film\frames\frames of segments\{cfg.video_segment}'
+        cfg.save_top_bottom_5_results = fr'C:\Users\TomerMassas\Desktop\Video project\video scene detection\tests\{cfg.video_name}\frames\QCN\{cfg.dataset_name}\{cfg.video_segment}'
+        cfg.images_folder_original_path = fr'C:\Users\TomerMassas\Desktop\Video project\video scene detection\tests\{cfg.video_name}\frames\frames of segments\{cfg.video_segment}'
 
         # resize the images
-        resize_images(fr"C:\Users\TomerMassas\Desktop\Video project\video scene detection\tests\Film\frames\frames of segments\{seg_num}",
-                      fr"C:\Users\TomerMassas\Documents\GitHub\QCN\dataset_test\KonIQ10K\{seg_num}_test",
+        resize_images(fr"C:\Users\TomerMassas\Desktop\Video project\video scene detection\tests\{cfg.video_name}\frames\frames of segments\{seg_num}",
+                      fr"C:\Users\TomerMassas\Documents\GitHub\QCN\dataset_test\{cfg.dataset_name}\{cfg.video_name}\{seg_num}_test",
                       512, 384)
 
         # prepare csv for frames
-        dataset_name = 'KonIQ10K'  # 'SPAQ'  or 'KonIQ10K'
-        image_folder = fr'C:\Users\TomerMassas\Documents\GitHub\QCN\dataset_test\{dataset_name}\{seg_num}_test'
-        output_folder = r'C:\Users\TomerMassas\Documents\GitHub\QCN\datasplit\pictime'
+        image_folder = fr'C:\Users\TomerMassas\Documents\GitHub\QCN\dataset_test\{cfg.dataset_name}\{cfg.video_name}\{seg_num}_test'
+        output_folder = fr'C:\Users\TomerMassas\Documents\GitHub\QCN\datasplit\pictime\{cfg.video_name}'
         output_filename = f"{seg_num}_test.csv"
         create_mos_csv(image_folder, output_folder, output_filename)
 

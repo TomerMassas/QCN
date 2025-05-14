@@ -68,8 +68,8 @@ def get_df_v1(cfg, is_train=False):
             ref_image_path = r'C:\Users\TomerMassas\Desktop\Video project\datasets\KonIq10k\512x384/'
             ref_df_path = r"C:\Users\TomerMassas\Documents\GitHub\QCN\datasplit\KonIQ10K\KonIQ10K_train_split_1.csv"
 
-            test_image_path = os.path.join(cfg.dataset_root, cfg.dataset_name, f'{cfg.video_segment}_test/')
-            test_df_path = os.path.join(cfg.datasplit_root, f'{cfg.video_segment}_test.csv')
+            test_image_path = os.path.join(cfg.dataset_root, cfg.dataset_name, cfg.video_name,f'{cfg.video_segment}_test/')
+            test_df_path = os.path.join(cfg.datasplit_root, cfg.video_name, f'{cfg.video_segment}_test.csv')
 
 
 
