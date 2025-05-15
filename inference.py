@@ -193,7 +193,7 @@ if __name__ == "__main__":
     cfg.init_model = f'./ckpt/{cfg.dataset_name}/Split_{cfg.split}/{cfg.ckpt_file}'
     cfg.dataset_root = fr'C:\Users\TomerMassas\Documents\GitHub\QCN\dataset_test'
     cfg.datasplit_root = r"C:\Users\TomerMassas\Documents\GitHub\QCN\datasplit\pictime"
-    cfg.video_segment = 'segment_010'
+    cfg.video_segment = 'segment_236'
 
     # pivot score setting
     # train_dataset_moses = pd.read_excel(fr"C:\Users\TomerMassas\Documents\GitHub\QCN\datasplit\{cfg.dataset_name}\{cfg.dataset_name}_train_split_1.xlsx")['MOS'].values
@@ -208,8 +208,8 @@ if __name__ == "__main__":
     cfg.save_folder = os.path.join(cfg.save_folder, cfg.video_name)
     segments_names = os.listdir(fr'C:\Users\TomerMassas\Desktop\Video project\video scene detection\tests\{cfg.video_name}\frames\frames of segments')
     for it, seg_num in enumerate(segments_names):
-        if it <10:
-            continue
+        # if it <10:
+        #     continue
         cfg.video_segment = seg_num
 
         # saveing top 5 and bottom 5 results
