@@ -28,10 +28,12 @@ if __name__ == "__main__":
     # args = parser.parse_args()
     # create_mos_csv(args.image_folder, args.output_folder)
     type_eval =  'test' #'test' 'ref'
-    seg_num = '032'
     dataset_name = 'KonIQ10K'  # 'SPAQ'  or 'KonIQ10K'
-    image_folder = fr'C:\Users\TomerMassas\Documents\GitHub\QCN\dataset_test\{dataset_name}\segment_{seg_num}_{type_eval}'
-    output_folder = r'C:\Users\TomerMassas\Documents\GitHub\QCN\datasplit\pictime'
-    output_filename = f"segment_{seg_num}_{type_eval}.csv"
-    create_mos_csv(image_folder, output_folder, output_filename)
+    video_name = "CM_C+R_It Get's Better 4K"
+    for seg_num in os.listdir(fr"C:\Users\TomerMassas\Documents\GitHub\QCN\dataset_test\KonIQ10K\{video_name}"):
+        seg_num = seg_num.split('_')[1]  # Extract segment number from folder name
+        image_folder = fr'C:\Users\TomerMassas\Documents\GitHub\QCN\dataset_test\{dataset_name}\{video_name}\segment_{seg_num}_{type_eval}'
+        output_folder = fr'C:\Users\TomerMassas\Documents\GitHub\QCN\datasplit\pictime\{video_name}'
+        output_filename = f"segment_{seg_num}_{type_eval}.csv"
+        create_mos_csv(image_folder, output_folder, output_filename)
 

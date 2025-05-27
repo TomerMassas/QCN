@@ -33,20 +33,23 @@ def resize_images(source_dir, target_dir, width, height):
             # Save the resized image
             resized_img.save(os.path.join(target_dir, filename))
 
-        print(f"Processed: {filename}")
+    print(f"Processed: {source_dir}")
 
 
 if __name__ == "__main__":
-    seg_num = '032'
 
-    # Example usage for SPAQ images (384x384)
-    resize_images(fr"C:\Users\TomerMassas\Desktop\Video project\video scene detection\tests\Film\frames\segment_{seg_num}",
-                  fr"C:\Users\TomerMassas\Documents\GitHub\QCN\dataset_test\SPAQ\segment_{seg_num}_test",
-                  384, 384)
+    video_name = "CM_C+R_It Get's Better 4K"
+    frames_seg_paths = os.listdir(fr"C:\Users\TomerMassas\Desktop\Video project\video scene detection\tests\{video_name}\frames\frames of segments")
+    for seg_n in frames_seg_paths:
+
+        # # Example usage for SPAQ images (384x384)
+        # resize_images(fr"C:\Users\TomerMassas\Desktop\Video project\video scene detection\tests\Film\frames\segment_{seg_num}",
+        #               fr"C:\Users\TomerMassas\Documents\GitHub\QCN\dataset_test\SPAQ\segment_{seg_num}_test",
+        #               384, 384)
 
 
 
-    # Example usage for KonIQ10K images (512x384)
-    resize_images(fr"C:\Users\TomerMassas\Desktop\Video project\video scene detection\tests\Film\frames\segment_{seg_num}",
-                  fr"C:\Users\TomerMassas\Documents\GitHub\QCN\dataset_test\KonIQ10K\segment_{seg_num}_test",
-                  512, 384)
+        # Example usage for KonIQ10K images (512x384)
+        resize_images(fr"C:\Users\TomerMassas\Desktop\Video project\video scene detection\tests\{video_name}\frames\frames of segments\{seg_n}",
+                      fr"C:\Users\TomerMassas\Documents\GitHub\QCN\dataset_test\KonIQ10K\{video_name}\{seg_n}_test",
+                      512, 384)

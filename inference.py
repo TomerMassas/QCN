@@ -204,7 +204,7 @@ if __name__ == "__main__":
 
     from my_utils.resize_images_preprocess import resize_images
     from my_utils.prepare_csv_for_inference import create_mos_csv
-    cfg.video_name = 'Film'
+    cfg.video_name = "CM_C+R_It Get's Better 4K"
     cfg.save_folder = os.path.join(cfg.save_folder, cfg.video_name)
     segments_names = os.listdir(fr'C:\Users\TomerMassas\Desktop\Video project\video scene detection\tests\{cfg.video_name}\frames\frames of segments')
     for it, seg_num in enumerate(segments_names):
@@ -216,16 +216,16 @@ if __name__ == "__main__":
         cfg.save_top_bottom_5_results = fr'C:\Users\TomerMassas\Desktop\Video project\video scene detection\tests\{cfg.video_name}\frames\QCN\{cfg.dataset_name}\{cfg.video_segment}'
         cfg.images_folder_original_path = fr'C:\Users\TomerMassas\Desktop\Video project\video scene detection\tests\{cfg.video_name}\frames\frames of segments\{cfg.video_segment}'
 
-        # resize the images
-        resize_images(fr"C:\Users\TomerMassas\Desktop\Video project\video scene detection\tests\{cfg.video_name}\frames\frames of segments\{seg_num}",
-                      fr"C:\Users\TomerMassas\Documents\GitHub\QCN\dataset_test\{cfg.dataset_name}\{cfg.video_name}\{seg_num}_test",
-                      512, 384)
+        # # resize the images
+        # resize_images(fr"C:\Users\TomerMassas\Desktop\Video project\video scene detection\tests\{cfg.video_name}\frames\frames of segments\{seg_num}",
+        #               fr"C:\Users\TomerMassas\Documents\GitHub\QCN\dataset_test\{cfg.dataset_name}\{cfg.video_name}\{seg_num}_test",
+        #               512, 384)
 
-        # prepare csv for frames
-        image_folder = fr'C:\Users\TomerMassas\Documents\GitHub\QCN\dataset_test\{cfg.dataset_name}\{cfg.video_name}\{seg_num}_test'
-        output_folder = fr'C:\Users\TomerMassas\Documents\GitHub\QCN\datasplit\pictime\{cfg.video_name}'
-        output_filename = f"{seg_num}_test.csv"
-        create_mos_csv(image_folder, output_folder, output_filename)
+        # # prepare csv for frames
+        # image_folder = fr'C:\Users\TomerMassas\Documents\GitHub\QCN\dataset_test\{cfg.dataset_name}\{cfg.video_name}\{seg_num}_test'
+        # output_folder = fr'C:\Users\TomerMassas\Documents\GitHub\QCN\datasplit\pictime\{cfg.video_name}'
+        # output_filename = f"{seg_num}_test.csv"
+        # create_mos_csv(image_folder, output_folder, output_filename)
 
         # Run inference
         results = inference(cfg)

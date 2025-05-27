@@ -4,7 +4,7 @@ import shutil
 
 
 if __name__ == '__main__':
-    video_name = 'Film'
+    video_name = "CM_C+R_It Get's Better 4K"
     QCN_csv_result_folder = fr'C:\Users\TomerMassas\Documents\GitHub\QCN\results\KonIQ10K\CTV29\{video_name}'
     csv_paths = os.listdir(QCN_csv_result_folder)
     csv_paths = [os.path.join(QCN_csv_result_folder, path) for path in csv_paths if path.endswith('.csv')]
